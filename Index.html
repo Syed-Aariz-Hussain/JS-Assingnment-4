@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini JS Projects</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #calculator input {
+      width: 200px;
+      font-size: 18px;
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+    #slider img {
+      max-width: 300px;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <h2>🎨 Random Background Color Generator</h2>
+  <button id="colorBtn">Change Color</button>
+  <p id="colorName"></p>
+
+  <h2>➕ Smart Calculator</h2>
+  <div id="calculator">
+    <input type="text" id="calcDisplay" readonly>
+    <br>
+    <button onclick="press('1')">1</button>
+    <button onclick="press('2')">2</button>
+    <button onclick="press('3')">3</button>
+    <button onclick="press('+')">+</button><br>
+    <button onclick="press('4')">4</button>
+    <button onclick="press('5')">5</button>
+    <button onclick="press('6')">6</button>
+    <button onclick="press('-')">-</button><br>
+    <button onclick="press('7')">7</button>
+    <button onclick="press('8')">8</button>
+    <button onclick="press('9')">9</button>
+    <button onclick="press('*')">*</button><br>
+    <button onclick="press('0')">0</button>
+    <button onclick="delChar()">DEL</button>
+    <button onclick="calculate()">=</button>
+    <button onclick="press('/')">/</button>
+  </div>
+
+  <h2>🖼 Image Slider</h2>
+  <div id="slider">
+    <img id="slideImg" src="https://via.placeholder.com/300x200?text=Image+1" alt="Slider Image">
+    <br>
+    <button onclick="prevImg()">Previous</button>
+    <button onclick="nextImg()">Next</button>
+  </div>
+
+  <script>
+
+    const colorBtn = document.getElementById("colorBtn");
+    const colorName = document.getElementById("colorName");
+    const colors = ["red", "blue", "green", "orange", "purple", "yellow", "pink", "aqua"];
+    colorBtn.onclick = function() {
+      const randIndex = Math.floor(Math.random() * colors.length);
+      const color = colors[randIndex];
+      document.body.style.backgroundColor = color;
+      colorName.textContent = `Current Color: ${color}`;
+    };
+
+
+    const display = document.getElementById("calcDisplay");
+    function press(val) {
+      if (["+", "-", "*", "/"].includes(val)) {
+        if (display.value === "" || /[+\-*/]$/.test(display.value)) return;
+      }
+      display.value += val;
+    }
+    function delChar() {
+      display.value = display.value.slice(0, -1);
+    }
+    function calculate() {
+      try {
+        display.value = eval(display.value);
+      } catch (e) {
+        alert("Invalid Expression");
+      }
+    }
+
+    
+    const images = [
+      "a0ea9132-f630-4045-a287-daa77609b312_landing-text-editor-img-4.avif",
+      "ed6753f0-ddd3-42c7-9c90-906c762a6280.webp",
+      "IMG-World-Tickets-Only.jpg"
+    ];
+    let index = 0;
+    const slideImg = document.getElementById("slideImg");
+
+    function nextImg() {
+      index = (index + 1) % images.length;
+      slideImg.src = images[index];
+    }
+    function prevImg() {
+      index = (index - 1 + images.length) % images.length;
+      slideImg.src = images[index];
+    }
+  </script>
+</body>
+</html>
